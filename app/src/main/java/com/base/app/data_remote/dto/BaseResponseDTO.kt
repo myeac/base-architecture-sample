@@ -1,5 +1,6 @@
 package com.base.app.data_remote.dto
 
+import com.base.app.domain.model.FilmModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -82,4 +83,33 @@ data class BaseResponseDTO(
 
     @SerialName("Error")
     val errorMessages: String? = null,
+)
+
+fun BaseResponseDTO.toDomain() = FilmModel(
+    title = title ?: "",
+    year = year ?: "",
+    rated = rated ?: "",
+    release = release ?: "",
+    runtime = runtime ?: "",
+    genre = genre ?: "",
+    director = director ?: "",
+    writer = writer ?: "",
+    actors = actors ?: "",
+    plot = plot ?: "",
+    language = language ?: "",
+    country = country ?: "",
+    awards = awards ?: "",
+    posterUrl = posterUrl ?: "",
+    ratings = ratings?.toDomain() ?: emptyList(),
+    metaScore = metaScore ?: "",
+    imdbRating = imdbRating ?: "",
+    imdbVotes = imdbVotes ?: "",
+    imdbID = imdbID ?: "",
+    type = type ?: "",
+    dvd = dvd ?: "",
+    boxOffice = boxOffice ?: "",
+    production = production ?: "",
+    website = website ?: "",
+    response = response ?: "",
+    errorMessages = errorMessages ?: "",
 )
