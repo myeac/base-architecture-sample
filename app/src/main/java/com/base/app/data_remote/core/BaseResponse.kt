@@ -1,4 +1,4 @@
-package com.base.app.core
+package com.base.app.data_remote.core
 
 sealed class BaseResponse<out T> {
 
