@@ -4,8 +4,11 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
+val packageSuffix: String by project
+val fullPackageName = "com.$packageSuffix"
+
 android {
-    namespace = "com.base.app"
+    namespace = fullPackageName
     compileSdk {
         version = release(37) {
             minorApiLevel = 1
@@ -13,7 +16,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.base.app"
+        applicationId = fullPackageName
         minSdk = 28
         targetSdk = 37
         versionCode = 1
