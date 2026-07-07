@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MovieRatingDTO(
+data class FilmRatingDTO(
     @SerialName("Source")
     val source: String? = null,
 

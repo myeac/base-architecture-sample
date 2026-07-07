@@ -48,7 +48,7 @@ data class BaseResponseDTO(
     val posterUrl: String? = null,
 
     @SerialName("Ratings")
-    val ratings: List<MovieRatingDTO>? = null,
+    val ratings: List<FilmRatingDTO>? = null,
 
     @SerialName("Metascore")
     val metaScore: String? = null,
