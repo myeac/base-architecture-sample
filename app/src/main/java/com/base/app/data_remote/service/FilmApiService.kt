@@ -1,6 +1,6 @@
 package com.base.app.data_remote.service
 
-import com.base.app.core.BaseResponse
+import com.base.app.data_remote.core.BaseResponse
 import com.base.app.data_remote.dto.BaseResponseDTO
 import com.movies.app.BuildConfig
 import retrofit2.http.GET
