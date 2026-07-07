@@ -36,6 +36,11 @@ android {
             "BUILD_API_KEY",
             localProperties.getProperty("OMDB_API_KEY", "\"\"")
         )
+        buildConfigField(
+            "String",
+            "BUILD_BASE_URL",
+            localProperties.getProperty("BASE_URL", "\"\"")
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
