@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class BaseErrorDTO(
     @SerialName("Response")
-    val response: Boolean? = null,
+    val response: String? = null,
 
     @SerialName("Error")
     val errorMessages: String? = null,
