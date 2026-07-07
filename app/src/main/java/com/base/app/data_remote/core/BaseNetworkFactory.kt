@@ -1,6 +1,5 @@
 package com.base.app.data_remote.core
 
-import com.base.app.core.BaseResponse
 import com.base.app.data_remote.dto.BaseErrorDTO
 import okhttp3.Request
 import okhttp3.ResponseBody
