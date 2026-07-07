@@ -1,10 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
+val packageSuffix: String by project
+val fullPackageName = "com.$packageSuffix"
+
 android {
-    namespace = "com.base.app"
+    namespace = fullPackageName
     compileSdk {
         version = release(37) {
             minorApiLevel = 1
@@ -12,7 +16,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.base.app"
+        applicationId = fullPackageName
         minSdk = 28
         targetSdk = 37
         versionCode = 1
@@ -48,6 +52,29 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // Navigation & Layout
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.constraintlayout.compose)
+
+    // Lifecycle & Coroutines
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Networking & Serialization
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.kotlinx.serialization.json)
+
+    // Dependency Injection
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    // Image Loading
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
+    //Testing
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
