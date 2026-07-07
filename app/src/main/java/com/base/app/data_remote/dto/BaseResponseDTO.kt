@@ -79,4 +79,7 @@ data class BaseResponseDTO(
 
     @SerialName("Response")
     val response: String? = null,
+
+    @SerialName("Error")
+    val errorMessages: String? = null,
 )
