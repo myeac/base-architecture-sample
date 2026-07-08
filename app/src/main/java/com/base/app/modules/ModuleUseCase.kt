@@ -6,7 +6,6 @@ import com.base.app.domain.use_case.GetListFavoriteFilmsUseCase
 import com.base.app.domain.use_case.RemoveFavoriteFilmUseCase
 import com.base.app.domain.use_case.SaveFavoriteFilmUseCase
 import com.base.app.domain.use_case.SearchFilmInFavoritesByName
-import com.base.app.domain.use_case.GetFilmListBySort
 import com.base.app.domain.use_case.IsFilmFavorite
 import org.koin.dsl.module
 
@@ -17,6 +16,5 @@ val useCaseModule = module {
     factory { RemoveFavoriteFilmUseCase(get()) }
     factory { GetListFavoriteFilmsUseCase(get()) }
     factory { SearchFilmInFavoritesByName(get()) }
-    factory { GetFilmListBySort(get()) }
     factory { IsFilmFavorite(get()) }
 }
