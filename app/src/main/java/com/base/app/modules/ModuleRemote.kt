@@ -26,5 +26,6 @@ val remoteModule = module {
     /** modules */
     single { get<Retrofit>().create(FilmApiService::class.java) }
 
+    /** repository */
     single { FilmRepositoryImpl(get()) }
 }

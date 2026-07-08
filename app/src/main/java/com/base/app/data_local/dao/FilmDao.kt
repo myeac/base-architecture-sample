@@ -1,7 +1,6 @@
 package com.base.app.data_local.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -12,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface FilmDao {
 
     companion object {
+        const val QUERY_DELETE_FILM_WITH_ID = "DELETE FROM films WHERE imdbID = :imdbId"
         const val QUERY_SELECT_ALL_FILMS = "SELECT * FROM films"
         const val QUERY_SELECT_BY_NAME = "SELECT * FROM films WHERE title LIKE '%' || :name || '%'"
         const val QUERY_SELECT_BY_ORDER_ASC = "SELECT * FROM films ORDER BY title ASC"
@@ -22,8 +22,8 @@ interface FilmDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFilm(film: FilmEntity)
 
-    @Delete
-    suspend fun deleteFilm(film: FilmEntity)
+    @Query(QUERY_DELETE_FILM_WITH_ID)
+    suspend fun deleteFilmById(imdbId: String)
 
     @Query(QUERY_SELECT_ALL_FILMS)
     fun getAllFavoriteFilms(): Flow<List<FilmEntity>>

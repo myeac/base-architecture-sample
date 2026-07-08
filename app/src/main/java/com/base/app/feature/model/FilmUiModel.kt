@@ -1,8 +1,8 @@
-package com.base.app.domain.model
+package com.base.app.feature.model
 
-import com.base.app.data_local.entity.FilmEntity
+import com.base.app.domain.model.FilmModel
 
-data class FilmModel(
+class FilmUiModel(
     val title: String,
     val year: String,
     val rated: String,
@@ -17,7 +17,7 @@ data class FilmModel(
     val country: String,
     val awards: String,
     val posterUrl: String,
-    val ratings: List<FilmRatingModel>,
+    val ratings: List<FilmRatingUiModel>,
     val metaScore: String,
     val imdbRating: String,
     val imdbVotes: String,
@@ -31,11 +31,11 @@ data class FilmModel(
     val errorMessages: String,
 )
 
-fun FilmModel.toEntity() = FilmEntity(
+fun FilmUiModel.toDomain() = FilmModel(
     title = this.title,
     year = this.year,
     rated = this.rated,
-    released = this.release,
+    release = this.release,
     runtime = this.runtime,
     genre = this.genre,
     director = this.director,
@@ -45,9 +45,9 @@ fun FilmModel.toEntity() = FilmEntity(
     language = this.language,
     country = this.country,
     awards = this.awards,
-    poster = this.posterUrl,
-    ratings = this.ratings.toLocal(),
-    metascore = this.metaScore,
+    posterUrl = this.posterUrl,
+    ratings = this.ratings.toDomain(),
+    metaScore = this.metaScore,
     imdbRating = this.imdbRating,
     imdbVotes = this.imdbVotes,
     imdbID = this.imdbID,
@@ -55,5 +55,7 @@ fun FilmModel.toEntity() = FilmEntity(
     dvd = this.dvd,
     boxOffice = this.boxOffice,
     production = this.production,
-    website = this.website
+    website = this.website,
+    response = this.response,
+    errorMessages = this.errorMessages,
 )

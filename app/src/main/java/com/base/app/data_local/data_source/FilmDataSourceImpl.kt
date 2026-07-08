@@ -2,8 +2,10 @@ package com.base.app.data_local.data_source
 
 import com.base.app.data_local.core.BaseLocalHandler
 import com.base.app.data_local.dao.FilmDao
-import com.base.app.data_local.entity.FilmEntity
+import com.base.app.data_local.entity.toDomain
 import com.base.app.domain.data_source.FilmDataSource
+import com.base.app.domain.model.FilmModel
+import com.base.app.domain.model.toEntity
 import kotlinx.coroutines.flow.Flow
 
 class FilmDataSourceImpl(
@@ -11,27 +13,45 @@ class FilmDataSourceImpl(
 ) : FilmDataSource, BaseLocalHandler() {
 
     override suspend fun saveFavorite(
-        film: FilmEntity
-    ) = safeLocalCall { filmDao.insertFilm(film) }
+        film: FilmModel
+    ) = safeLocalCall(
+        localCall = { filmDao.insertFilm(film.toEntity()) },
+        mapper = { it }
+    )
 
     override suspend fun removeFavorite(
-        film: FilmEntity
-    ) = safeLocalCall { filmDao.deleteFilm(film) }
+        imdbId: String
+    ) = safeLocalCall(
+        localCall = { filmDao.deleteFilmById(imdbId) },
+        mapper = { it }
+    )
 
     override fun getFavorites(
-    ): Flow<List<FilmEntity>> = safeLocalFlow(filmDao.getAllFavoriteFilms())
+    ): Flow<List<FilmModel>> = safeLocalFlow(
+        callFlow = filmDao.getAllFavoriteFilms(),
+        mapper = { it.toDomain() }
+    )
 
     override fun searchFavorites(
         name: String
-    ): Flow<List<FilmEntity>> = safeLocalFlow(filmDao.searchFilmsByName(name))
+    ): Flow<List<FilmModel>> = safeLocalFlow(
+        callFlow = filmDao.searchFilmsByName(name),
+        mapper = { it.toDomain() }
+    )
 
     override fun getFavoritesSortedAsc(
-    ): Flow<List<FilmEntity>> = safeLocalFlow(filmDao.getFilmsOrderedByNameAsc())
+    ): Flow<List<FilmModel>> = safeLocalFlow(
+        callFlow = filmDao.getFilmsOrderedByNameAsc(),
+        mapper = { it.toDomain() }
+    )
 
     override fun getFavoritesSortedDesc(
-    ): Flow<List<FilmEntity>> = safeLocalFlow(filmDao.getFilmsOrderedByNameDesc())
+    ): Flow<List<FilmModel>> = safeLocalFlow(
+        callFlow = filmDao.getFilmsOrderedByNameDesc(),
+        mapper = { it.toDomain() }
+    )
 
     override suspend fun isFavorite(
         imdbID: String
-    ): Boolean = safeLocalCall { filmDao.isFilmFavorite(imdbID) }
+    ): Boolean = safeLocalCall(localCall = { filmDao.isFilmFavorite(imdbID) })
 }

@@ -7,7 +7,6 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
 val localModule = module {
-
     single {
         Room.databaseBuilder(
             androidApplication(),
@@ -16,7 +15,9 @@ val localModule = module {
         ).build()
     }
 
+    /** modules */
     single { get<AppDataBase>().filmDao() }
 
+    /** data source */
     single { FilmDataSourceImpl(get()) }
 }
