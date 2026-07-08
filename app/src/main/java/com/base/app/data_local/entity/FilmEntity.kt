@@ -36,6 +36,8 @@ data class FilmEntity(
     val website: String?
 )
 
+fun List<FilmEntity>.toDomain() = map { it.toDomain() }
+
 fun FilmEntity.toDomain() = FilmModel(
     imdbID = this.imdbID ?: "",
     title = this.title ?: "",
