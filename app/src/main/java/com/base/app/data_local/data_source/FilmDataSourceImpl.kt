@@ -20,9 +20,9 @@ class FilmDataSourceImpl(
     )
 
     override suspend fun removeFavorite(
-        film: FilmModel
+        imdbId: String
     ) = safeLocalCall(
-        localCall = { filmDao.deleteFilm(film.toEntity()) },
+        localCall = { filmDao.deleteFilmById(imdbId) },
         mapper = { it }
     )
 

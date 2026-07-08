@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface FilmDataSource {
     suspend fun saveFavorite(film: FilmModel)
-    suspend fun removeFavorite(film: FilmModel)
+    suspend fun removeFavorite(imdbId: String)
     fun getFavorites(): Flow<List<FilmModel>>
     fun searchFavorites(name: String): Flow<List<FilmModel>>
     fun getFavoritesSortedAsc(): Flow<List<FilmModel>>
