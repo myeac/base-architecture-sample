@@ -5,20 +5,22 @@ import kotlinx.coroutines.flow.catch
 
 abstract class BaseLocalHandler {
 
-    protected suspend fun <T> safeLocalCall(
-        call: suspend () -> T
-    ): T {
+    protected suspend fun <ENTITY, DOMAIN> safeLocalCall(
+        localCall: suspend () -> ENTITY,
+        mapper: (ENTITY) -> DOMAIN
+    ): DOMAIN {
         return try {
-            call()
+            val result = localCall()
+            mapper(result)
         } catch (exception: Exception) {
             exception.printStackTrace()
             throw LocalException("Database error: ${exception.message}", exception)
         }
     }
 
-    protected fun <T> safeLocalFlow(
-        flow: Flow<T>
-    ): Flow<T> {
+    protected fun <DOMAIN> safeLocalFlow(
+        flow: Flow<DOMAIN>
+    ): Flow<DOMAIN> {
         return flow.catch { exception ->
             throw LocalException("Database stream error: ${exception.message}", exception)
         }
