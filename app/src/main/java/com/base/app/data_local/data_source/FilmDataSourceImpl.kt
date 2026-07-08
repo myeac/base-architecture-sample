@@ -3,34 +3,35 @@ package com.base.app.data_local.data_source
 import com.base.app.data_local.core.BaseLocalHandler
 import com.base.app.data_local.dao.FilmDao
 import com.base.app.data_local.entity.FilmEntity
+import com.base.app.domain.data_source.FilmDataSource
 import kotlinx.coroutines.flow.Flow
 
 class FilmDataSourceImpl(
     private val filmDao: FilmDao
-) : BaseLocalHandler() {
+) : FilmDataSource, BaseLocalHandler() {
 
-    suspend fun saveFavorite(
+    override suspend fun saveFavorite(
         film: FilmEntity
     ) = safeLocalCall { filmDao.insertFilm(film) }
 
-    suspend fun removeFavorite(
+    override suspend fun removeFavorite(
         film: FilmEntity
     ) = safeLocalCall { filmDao.deleteFilm(film) }
 
-    fun getFavorites(
+    override fun getFavorites(
     ): Flow<List<FilmEntity>> = safeLocalFlow(filmDao.getAllFavoriteFilms())
 
-    fun searchFavorites(
+    override fun searchFavorites(
         name: String
     ): Flow<List<FilmEntity>> = safeLocalFlow(filmDao.searchFilmsByName(name))
 
-    fun getFavoritesSortedAsc(
+    override fun getFavoritesSortedAsc(
     ): Flow<List<FilmEntity>> = safeLocalFlow(filmDao.getFilmsOrderedByNameAsc())
 
-    fun getFavoritesSortedDesc(
+    override fun getFavoritesSortedDesc(
     ): Flow<List<FilmEntity>> = safeLocalFlow(filmDao.getFilmsOrderedByNameDesc())
 
-    suspend fun isFavorite(
+    override suspend fun isFavorite(
         imdbID: String
     ): Boolean = safeLocalCall { filmDao.isFilmFavorite(imdbID) }
 }
