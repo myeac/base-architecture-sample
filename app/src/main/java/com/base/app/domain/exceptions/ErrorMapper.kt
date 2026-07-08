@@ -7,7 +7,7 @@ import okio.IOException
 
 fun Throwable.toDomainError(): DomainException {
     return when (this) {
-        is SuccessNotFoundException -> DomainException.NotFoundException()
+        is SuccessNotFoundException -> DomainException.NotFoundException(this.message)
         is ApiException -> {
             when (this.code) {
                 401 -> DomainException.AccessDeniedException()

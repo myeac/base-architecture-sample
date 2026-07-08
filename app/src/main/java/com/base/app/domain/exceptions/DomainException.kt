@@ -5,7 +5,7 @@ sealed class DomainException(
 ) : Exception(message) {
     class NetworkErrorException : DomainException(DOMAIN_ERROR_NETWORK)
     class AccessDeniedException : DomainException(DOMAIN_ERROR_ACCESS_DENIED)
-    class NotFoundException : DomainException(DOMAIN_ERROR_NOT_FOUND)
+    class NotFoundException(val apiMessage: String? = null) : DomainException(apiMessage?: DOMAIN_ERROR_NOT_FOUND)
     class DatabaseException : DomainException(DOMAIN_ERROR_DATA_BASE)
     data class UnknownException(val msg: String) : DomainException(msg)
 }
