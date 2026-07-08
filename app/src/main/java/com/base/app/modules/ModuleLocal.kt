@@ -16,6 +16,7 @@ val localModule = module {
         ).build()
     }
 
+    /** modules */
     single { get<AppDataBase>().filmDao() }
 
     single { FilmDataSourceImpl(get()) }
