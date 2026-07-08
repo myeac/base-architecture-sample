@@ -2,15 +2,14 @@ package com.base.app.domain.use_case
 
 import com.base.app.domain.core.BaseUseCase
 import com.base.app.domain.data_source.FilmDataSource
-import com.base.app.domain.model.FilmModel
 
 class RemoveFavoriteFilmUseCase(
     private val dataSource: FilmDataSource
-) : BaseUseCase<FilmModel, Unit>() {
+) : BaseUseCase<String, Unit>() {
 
     override suspend fun execute(
-        params: FilmModel
+        params: String
     ) {
-        dataSource.removeFavorite(params.imdbID)
+        dataSource.removeFavorite(params)
     }
 }

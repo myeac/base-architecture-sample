@@ -5,7 +5,7 @@ import com.base.app.domain.data_source.FilmDataSource
 import com.base.app.domain.model.FilmModel
 import kotlinx.coroutines.flow.Flow
 
-class SearchFilmInFavoritesByName(
+class SearchInFavoritesByNameUseCase(
     private val dataSource: FilmDataSource
 ) : BaseUseCase<String, Flow<List<FilmModel>>>() {
 

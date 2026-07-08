@@ -3,7 +3,7 @@ package com.base.app.domain.use_case
 import com.base.app.domain.core.BaseUseCase
 import com.base.app.domain.data_source.FilmDataSource
 
-class IsFilmFavorite(
+class IsFilmFavoriteUseCase(
     private val dataSource: FilmDataSource
 ) : BaseUseCase<String, Boolean>() {
 
