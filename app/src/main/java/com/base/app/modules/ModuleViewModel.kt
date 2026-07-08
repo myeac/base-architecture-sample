@@ -10,6 +10,8 @@ val viewModelModule = module {
         FilmViewModel(
             get(),
             get(),
+            get(),
+            get(),
             get()
         )
     }
@@ -17,8 +19,6 @@ val viewModelModule = module {
         FavoriteFilmsViewModel(
             get(),
             get(),
-            get(),
-            get()
         )
     }
 }
