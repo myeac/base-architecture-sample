@@ -1,4 +1,4 @@
-package com.base.app.domain.core
+package com.base.app.domain.exceptions
 
 import com.base.app.data_local.core.LocalException
 import com.base.app.data_remote.core.ApiException

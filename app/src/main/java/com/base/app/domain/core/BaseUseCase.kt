@@ -1,5 +1,7 @@
 package com.base.app.domain.core
 
+import com.base.app.domain.exceptions.toDomainError
+
 /**
  * For UseCases that require parameters.
  */

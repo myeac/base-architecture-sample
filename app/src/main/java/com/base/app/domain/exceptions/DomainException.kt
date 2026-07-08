@@ -1,6 +1,4 @@
-package com.base.app.domain.core
-
-import org.koin.core.logger.MESSAGE
+package com.base.app.domain.exceptions
 
 sealed class DomainException(
     message: String? = null
