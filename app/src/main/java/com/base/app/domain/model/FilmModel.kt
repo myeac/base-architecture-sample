@@ -1,5 +1,7 @@
 package com.base.app.domain.model
 
+import com.base.app.data_local.entity.FilmEntity
+
 data class FilmModel(
     val title: String,
     val year: String,
@@ -27,4 +29,31 @@ data class FilmModel(
     val website: String,
     val response: String,
     val errorMessages: String,
+)
+
+fun FilmModel.toEntity() = FilmEntity(
+    title = this.title,
+    year = this.year,
+    rated = this.rated,
+    released = this.release,
+    runtime = this.runtime,
+    genre = this.genre,
+    director = this.director,
+    writer = this.writer,
+    actors = this.actors,
+    plot = this.plot,
+    language = this.language,
+    country = this.country,
+    awards = this.awards,
+    poster = this.posterUrl,
+    ratings = this.ratings.toLocal(),
+    metascore = this.metaScore,
+    imdbRating = this.imdbRating,
+    imdbVotes = this.imdbVotes,
+    imdbID = this.imdbID,
+    type = this.type,
+    dvd = this.dvd,
+    boxOffice = this.boxOffice,
+    production = this.production,
+    website = this.website
 )
