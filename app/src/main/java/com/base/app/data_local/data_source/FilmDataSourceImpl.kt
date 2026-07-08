@@ -5,7 +5,7 @@ import com.base.app.data_local.dao.FilmDao
 import com.base.app.data_local.entity.FilmEntity
 import kotlinx.coroutines.flow.Flow
 
-class FilmLocalDataSource(
+class FilmDataSourceImpl(
     private val filmDao: FilmDao
 ) : BaseLocalHandler() {
 

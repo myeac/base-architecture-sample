@@ -1,10 +1,8 @@
-package com.base.app.data_local.db
+package com.base.app.data_local.tools
 
 import androidx.room.TypeConverter
 import com.base.app.data_local.model.FilmRatingLocal
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.decodeFromString
 
 class FilmRatingConverter {
 

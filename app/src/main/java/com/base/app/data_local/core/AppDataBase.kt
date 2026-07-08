@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.base.app.data_local.dao.FilmDao
-import com.base.app.data_local.db.FilmRatingConverter
+import com.base.app.data_local.tools.FilmRatingConverter
 import com.base.app.data_local.entity.FilmEntity
 
 @Database(

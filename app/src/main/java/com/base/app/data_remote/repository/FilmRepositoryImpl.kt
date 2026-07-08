@@ -5,7 +5,7 @@ import com.base.app.data_remote.dto.toDomain
 import com.base.app.data_remote.service.FilmApiService
 import com.base.app.domain.model.FilmModel
 
-class FilmRemoteImpl(
+class FilmRepositoryImpl(
     private val apiService: FilmApiService
 ) : BaseApiHandler() {
 
