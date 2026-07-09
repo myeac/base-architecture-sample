@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.base.app.domain.exceptions.DomainException
 import com.base.app.domain.exceptions.toDomainError
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -33,6 +34,37 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
+    protected fun <T> collectFlow(
+        uiStateFlow: MutableStateFlow<UiState<T>>,
+        flowCall: suspend () -> Flow<T>
+    ) {
+        viewModelScope.launch {
+            uiStateFlow.value = UiState.Loading
+            try {
+                flowCall().collect { handleSuccess(uiStateFlow, it) }
+            } catch (exception: Exception) {
+                handleError(uiStateFlow, exception)
+            }
+        }
+    }
+
+    protected fun <T> executeLocalCall(
+        localCall: suspend () -> T,
+        onSuccess: (T) -> Unit = {},
+        onError: ((DomainException) -> Unit)? = null
+    ) {
+        viewModelScope.launch {
+            try {
+                val result = localCall()
+                onSuccess(result)
+            } catch (exception: Exception) {
+                val domainError = (exception as? DomainException) ?: exception.toDomainError()
+                _errorEvents.emit(domainError)
+                onError?.invoke(domainError)
+            }
+        }
+    }
+
     protected fun <T> handleSuccess(
         uiStateFlow: MutableStateFlow<UiState<T>>,
         result: T
@@ -53,23 +85,6 @@ abstract class BaseViewModel : ViewModel() {
             uiStateFlow.value = UiState.SuccessEmpty(domainError.apiMessage ?: "Not found")
         } else {
             uiStateFlow.value = UiState.Error(domainError)
-        }
-    }
-
-    protected fun <T> executeLocalCall(
-        localCall: suspend () -> T,
-        onSuccess: (T) -> Unit = {},
-        onError: ((DomainException) -> Unit)? = null
-    ) {
-        viewModelScope.launch {
-            try {
-                val result = localCall()
-                onSuccess(result)
-            } catch (exception: Exception) {
-                val domainError = (exception as? DomainException) ?: exception.toDomainError()
-                _errorEvents.emit(domainError)
-                onError?.invoke(domainError)
-            }
         }
     }
 
