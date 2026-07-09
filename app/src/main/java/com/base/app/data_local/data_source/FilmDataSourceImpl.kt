@@ -1,6 +1,7 @@
 package com.base.app.data_local.data_source
 
 import com.base.app.data_local.core.BaseLocalHandler
+import com.base.app.data_local.core.LocalException
 import com.base.app.data_local.dao.FilmDao
 import com.base.app.data_local.entity.toDomain
 import com.base.app.domain.data_source.FilmDataSource
@@ -31,6 +32,15 @@ class FilmDataSourceImpl(
         callFlow = filmDao.getAllFavoriteFilms(),
         mapper = { it.toDomain() }
     )
+
+    override fun getFavoriteById(
+        imdbId: String
+    ): Flow<FilmModel> {
+        return safeLocalFlow(
+            callFlow = filmDao.searchFilmById(imdbId),
+            mapper = { it?.toDomain() ?: throw LocalException("Film not found in your favorites list.") }
+        )
+    }
 
     override fun searchFavorites(
         name: String
