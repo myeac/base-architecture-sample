@@ -1,4 +1,4 @@
-package com.base.app.feature.core
+package com.base.app.presentation.core
 
 import com.base.app.domain.exceptions.DomainException
 

@@ -1,4 +1,4 @@
-package com.base.app.presentation
+package com.base.app.presentation.film_favorites.view_model
 
 import androidx.lifecycle.viewModelScope
 import com.base.app.domain.model.FilmModel
@@ -6,8 +6,8 @@ import com.base.app.domain.model.FilmSortStateModel
 import com.base.app.domain.use_case.GetListFavoriteFilmsUseCase
 import com.base.app.domain.use_case.RemoveFavoriteFilmUseCase
 import com.base.app.domain.use_case.SearchInFavoritesByNameUseCase
-import com.base.app.feature.core.UiState
 import com.base.app.presentation.core.BaseViewModel
+import com.base.app.presentation.core.UiState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
