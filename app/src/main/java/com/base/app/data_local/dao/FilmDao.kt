@@ -13,6 +13,7 @@ interface FilmDao {
     companion object {
         const val QUERY_DELETE_FILM_WITH_ID = "DELETE FROM films WHERE imdbID = :imdbId"
         const val QUERY_SELECT_ALL_FILMS = "SELECT * FROM films"
+        const val QUERY_SELECT_BY_ID = "SELECT * FROM films WHERE imdbID = :imdbId"
         const val QUERY_SELECT_BY_NAME = "SELECT * FROM films WHERE title LIKE '%' || :name || '%'"
         const val QUERY_SELECT_BY_ORDER_ASC = "SELECT * FROM films ORDER BY title ASC"
         const val QUERY_SELECT_BY_ORDER_DESC = "SELECT * FROM films ORDER BY title DESC"
@@ -27,6 +28,9 @@ interface FilmDao {
 
     @Query(QUERY_SELECT_ALL_FILMS)
     fun getAllFavoriteFilms(): Flow<List<FilmEntity>>
+
+    @Query(QUERY_SELECT_BY_ID)
+    fun searchFilmById(imdbId: String): Flow<FilmEntity?>
 
     @Query(QUERY_SELECT_BY_NAME)
     fun searchFilmsByName(name: String): Flow<List<FilmEntity>>

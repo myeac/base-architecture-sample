@@ -7,6 +7,7 @@ interface FilmDataSource {
     suspend fun saveFavorite(film: FilmModel)
     suspend fun removeFavorite(imdbId: String)
     fun getFavorites(): Flow<List<FilmModel>>
+    fun getFavoriteById(imdbId: String): Flow<FilmModel>
     fun searchFavorites(name: String): Flow<List<FilmModel>>
     fun getFavoritesSortedAsc(): Flow<List<FilmModel>>
     fun getFavoritesSortedDesc(): Flow<List<FilmModel>>

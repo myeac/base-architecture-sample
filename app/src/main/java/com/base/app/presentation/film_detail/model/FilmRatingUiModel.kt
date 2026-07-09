@@ -1,4 +1,4 @@
-package com.base.app.feature.model
+package com.base.app.presentation.film_detail.model
 
 import com.base.app.domain.model.FilmRatingModel
 

@@ -1,4 +1,4 @@
-package com.base.app.presentation
+package com.base.app.presentation.film_detail.view_model
 
 import com.base.app.domain.model.FilmModel
 import com.base.app.domain.use_case.GetFilmByIdUseCase
@@ -6,19 +6,21 @@ import com.base.app.domain.use_case.GetFilmByTitleUseCase
 import com.base.app.domain.use_case.IsFilmFavoriteUseCase
 import com.base.app.domain.use_case.RemoveFavoriteFilmUseCase
 import com.base.app.domain.use_case.SaveFavoriteFilmUseCase
-import com.base.app.feature.core.UiState
-import com.base.app.feature.model.FilmUiModel
-import com.base.app.feature.model.toDomain
+import com.base.app.domain.use_case.SearchFavoriteByIdUseCase
 import com.base.app.presentation.core.BaseViewModel
+import com.base.app.presentation.core.UiState
+import com.base.app.presentation.film_detail.model.FilmUiModel
+import com.base.app.presentation.film_detail.model.toDomain
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class FilmViewModel(
+class FilmDetailViewModel(
     private val getFilmByTitleUseCase: GetFilmByTitleUseCase,
     private val getFilmByIdUseCase: GetFilmByIdUseCase,
     private val isFilmFavoriteUseCase: IsFilmFavoriteUseCase,
     private val saveFavoriteFilmUseCase: SaveFavoriteFilmUseCase,
     private val removeFavoriteFilmUseCase: RemoveFavoriteFilmUseCase,
+    private val searchFavoriteByIdUseCase: SearchFavoriteByIdUseCase,
 ) : BaseViewModel() {
 
     private val _titleState = MutableStateFlow<UiState<FilmModel>>(UiState.Idle)
@@ -29,6 +31,9 @@ class FilmViewModel(
 
     private val _isFavorite = MutableStateFlow(false)
     val isFavorite = _isFavorite.asStateFlow()
+
+    private val _searchFilmState = MutableStateFlow<UiState<FilmModel>>(UiState.Idle)
+    val searchFilmState = _searchFilmState.asStateFlow()
 
     fun searchFilmByTitle(
         title: String
@@ -62,6 +67,15 @@ class FilmViewModel(
         executeLocalCall(
             localCall = { isFilmFavoriteUseCase(imdbId) },
             onSuccess = { _isFavorite.value = it },
+        )
+    }
+
+    fun searchFavouriteById(
+        imdbId:String
+    ){
+        collectFlow(
+            uiStateFlow = _searchFilmState,
+            flowCall = { searchFavoriteByIdUseCase(imdbId) },
         )
     }
 
