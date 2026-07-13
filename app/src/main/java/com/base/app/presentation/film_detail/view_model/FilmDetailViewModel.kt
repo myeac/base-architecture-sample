@@ -11,6 +11,7 @@ import com.base.app.presentation.core.BaseViewModel
 import com.base.app.presentation.core.UiState
 import com.base.app.presentation.film_detail.model.FilmUiModel
 import com.base.app.presentation.film_detail.model.toDomain
+import com.base.app.presentation.home.FilmSearchTypeUiModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -23,27 +24,38 @@ class FilmDetailViewModel(
     private val searchFavoriteByIdUseCase: SearchFavoriteByIdUseCase,
 ) : BaseViewModel() {
 
-    private val _titleState = MutableStateFlow<UiState<FilmModel>>(UiState.Idle)
-    val titleState = _titleState.asStateFlow()
-
-    private val _idState = MutableStateFlow<UiState<FilmModel>>(UiState.Idle)
-    val idState = _idState.asStateFlow()
-
     private val _isFavorite = MutableStateFlow(false)
     val isFavorite = _isFavorite.asStateFlow()
 
     private val _searchFilmState = MutableStateFlow<UiState<FilmModel>>(UiState.Idle)
     val searchFilmState = _searchFilmState.asStateFlow()
 
+    fun loadFilm(
+        parameter: String,
+        searchType: FilmSearchTypeUiModel
+    ) {
+        when (searchType) {
+            FilmSearchTypeUiModel.SEARCH_BY_TITLE -> searchFilmByTitle(parameter)
+            FilmSearchTypeUiModel.SEARCH_BY_ID -> {
+                searchFilmById(parameter)
+                checkFavoriteStatus(parameter)
+            }
+            FilmSearchTypeUiModel.SEARCH_FROM_FAVORITES -> {
+                searchFavouriteById(parameter)
+                checkFavoriteStatus(parameter)
+            }
+        }
+    }
+
     fun searchFilmByTitle(
         title: String
     ) {
         if (title.isBlank()) {
-            resetState(_titleState)
+            resetState(_searchFilmState)
             return
         }
         executeUseCase(
-            uiStateFlow = _titleState,
+            uiStateFlow = _searchFilmState,
             call = { getFilmByTitleUseCase(title) }
         )
     }
@@ -52,11 +64,11 @@ class FilmDetailViewModel(
         id: String
     ) {
         if (id.isBlank()) {
-            resetState(_idState)
+            resetState(_searchFilmState)
             return
         }
         executeUseCase(
-            uiStateFlow = _idState,
+            uiStateFlow = _searchFilmState,
             call = { getFilmByIdUseCase(id) }
         )
     }
@@ -71,8 +83,8 @@ class FilmDetailViewModel(
     }
 
     fun searchFavouriteById(
-        imdbId:String
-    ){
+        imdbId: String
+    ) {
         collectFlow(
             uiStateFlow = _searchFilmState,
             flowCall = { searchFavoriteByIdUseCase(imdbId) },
@@ -94,8 +106,7 @@ class FilmDetailViewModel(
     }
 
     fun clearSearch() {
-        resetState(_titleState)
-        resetState(_idState)
+        resetState(_searchFilmState)
         _isFavorite.value = false
     }
 }
