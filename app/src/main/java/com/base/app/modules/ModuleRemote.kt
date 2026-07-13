@@ -3,6 +3,7 @@ package com.base.app.modules
 import com.base.app.data_remote.core.BaseNetworkFactory
 import com.base.app.data_remote.repository.FilmRepositoryImpl
 import com.base.app.data_remote.service.FilmApiService
+import com.base.app.domain.repository.FilmRepository
 import com.movies.app.BuildConfig
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -27,5 +28,5 @@ val remoteModule = module {
     single { get<Retrofit>().create(FilmApiService::class.java) }
 
     /** repository */
-    single { FilmRepositoryImpl(get()) }
+    single<FilmRepository> { FilmRepositoryImpl(get()) }
 }
