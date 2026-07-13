@@ -1,6 +1,7 @@
 package com.base.app.domain.model
 
 import com.base.app.data_local.entity.FilmEntity
+import com.base.app.presentation.film_detail.model.FilmUiModel
 
 data class FilmModel(
     val title: String,
@@ -56,4 +57,33 @@ fun FilmModel.toEntity() = FilmEntity(
     boxOffice = this.boxOffice,
     production = this.production,
     website = this.website
+)
+
+fun FilmModel.toUi() = FilmUiModel(
+    title = this.title,
+    year = this.year,
+    rated = this.rated,
+    release = this.release,
+    runtime = this.runtime,
+    genre = this.genre,
+    director = this.director,
+    writer = this.writer,
+    actors = this.actors,
+    plot = this.plot,
+    language = this.language,
+    country = this.country,
+    awards = this.awards,
+    posterUrl = this.posterUrl,
+    ratings = this.ratings.toUi(),
+    metaScore = this.metaScore,
+    imdbRating = this.imdbRating,
+    imdbVotes = this.imdbVotes,
+    imdbID = this.imdbID,
+    type = this.type,
+    dvd = this.dvd,
+    boxOffice = this.boxOffice,
+    production = this.production,
+    website = this.website,
+    response = this.response,
+    errorMessages = this.errorMessages,
 )
