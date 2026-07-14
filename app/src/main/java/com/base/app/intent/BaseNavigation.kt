@@ -43,7 +43,8 @@ fun AppNavigation(
             val args = it.toRoute<FilmDetailDestination>()
             FilmDetailScreen(
                 parameter = args.parameter,
-                searchType = args.searchType
+                searchType = args.searchType,
+                onBack = { navController.popBackStack() }
             )
         }
 
