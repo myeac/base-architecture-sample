@@ -72,5 +72,4 @@ fun FilmDetailScreen(
         }
         else -> Unit
     }
-
 }
