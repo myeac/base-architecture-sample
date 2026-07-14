@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.base.app.presentation.film_favorites.view_model.FavoriteFilmsViewModel
-import com.base.app.presentation.home.FilmSearchTypeUiModel
+import com.base.app.presentation.home.model.FilmSearchTypeUiModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

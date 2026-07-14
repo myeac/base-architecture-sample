@@ -1,5 +1,6 @@
 package com.base.app.presentation.film_detail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -13,7 +14,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.base.app.presentation.core.UiState
 import com.base.app.presentation.film_detail.components.FilmInfoState
 import com.base.app.presentation.film_detail.view_model.FilmDetailViewModel
-import com.base.app.presentation.home.FilmSearchTypeUiModel
+import com.base.app.presentation.home.model.FilmSearchTypeUiModel
+import com.base.app.presentation.theme.darkBlue
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -31,15 +33,15 @@ fun FilmDetailScreen(
         viewModel.loadFilm(parameter, searchType)
     }
 
-    val darkBlue = Color(0xFF001325)
-
     when (val state = filmState) {
         is UiState.Loading -> {
             Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(darkBlue),
+                contentAlignment = Alignment.Center,
             ) {
-                CircularProgressIndicator(color = Color.Black)
+                CircularProgressIndicator(color = Color.White)
             }
         }
         is UiState.Success -> {

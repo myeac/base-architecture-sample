@@ -62,10 +62,12 @@ fun FilmFavoriteListContent(
             when (uiState) {
                 is UiState.Loading -> {
                     Box(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(darkBlue),
                         contentAlignment = Alignment.Center
                     ) {
-                        CircularProgressIndicator(color = Color.Black)
+                        CircularProgressIndicator(color = Color.White)
                     }
                 }
                 is UiState.Success -> {
