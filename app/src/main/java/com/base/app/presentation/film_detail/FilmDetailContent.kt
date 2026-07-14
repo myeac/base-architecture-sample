@@ -38,12 +38,12 @@ fun FilmDetailContent(
         FilmHeaderOverlay(film)
         FilmPosterOverlay(film.posterUrl, darkBlue)
         FilmInfoSection(film)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         FilmDataValueSection(film)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         FilmRatingSection(film.ratings)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         FilmDataValueRatingSection(film)
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }

@@ -27,7 +27,7 @@ fun FilmRatingSection(
     if (ratings.isEmpty()) return
     Column(
         modifier = Modifier
-            .padding(horizontal = 16.dp)
+            .padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
         Text(
             text = "Critic Scores",
