@@ -19,6 +19,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.base.app.presentation.film_detail.model.FilmRatingUiModel
+import com.base.app.presentation.theme.darkGreen
+import com.base.app.presentation.theme.darkRed
+import com.base.app.presentation.theme.darkYellow
 
 @Composable
 fun FilmRatingSection(
@@ -51,9 +54,9 @@ fun RatingCard(
     rating: FilmRatingUiModel
 ) {
     val (shortName, brandColor) = when {
-        rating.source.contains("Internet Movie Database") -> "IMDb" to Color(0xFFF5C518)
-        rating.source.contains("Rotten Tomatoes") -> "Rotten" to Color(0xFFFA320A)
-        rating.source.contains("Metacritic") -> "Metacritic" to Color(0xFF66CC33)
+        rating.source.contains("Internet Movie Database") -> "IMDb" to darkYellow
+        rating.source.contains("Rotten Tomatoes") -> "Rotten" to darkRed
+        rating.source.contains("Metacritic") -> "Metacritic" to darkGreen
         else -> rating.source to Color.White
     }
     Surface(

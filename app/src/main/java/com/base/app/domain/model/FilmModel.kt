@@ -59,6 +59,8 @@ fun FilmModel.toEntity() = FilmEntity(
     website = this.website
 )
 
+fun List<FilmModel>.toUi() = map { it.toUi() }
+
 fun FilmModel.toUi() = FilmUiModel(
     title = this.title,
     year = this.year,

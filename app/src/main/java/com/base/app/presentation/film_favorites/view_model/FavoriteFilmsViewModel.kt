@@ -1,13 +1,14 @@
 package com.base.app.presentation.film_favorites.view_model
 
 import androidx.lifecycle.viewModelScope
-import com.base.app.domain.model.FilmModel
 import com.base.app.domain.model.FilmSortStateModel
+import com.base.app.domain.model.toUi
 import com.base.app.domain.use_case.GetListFavoriteFilmsUseCase
 import com.base.app.domain.use_case.RemoveFavoriteFilmUseCase
 import com.base.app.domain.use_case.SearchInFavoritesByNameUseCase
 import com.base.app.presentation.core.BaseViewModel
 import com.base.app.presentation.core.UiState
+import com.base.app.presentation.film_detail.model.FilmUiModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,7 +23,7 @@ class FavoriteFilmsViewModel(
     private val removeFavoriteFilmUseCase: RemoveFavoriteFilmUseCase,
 ) : BaseViewModel() {
 
-    private val _favoriteFilmsState = MutableStateFlow<UiState<List<FilmModel>>>(UiState.Idle)
+    private val _favoriteFilmsState = MutableStateFlow<UiState<List<FilmUiModel>>>(UiState.Idle)
     val favoriteFilmsState = _favoriteFilmsState.asStateFlow()
 
     private val _sortState = MutableStateFlow(FilmSortStateModel.NONE)
@@ -43,7 +44,7 @@ class FavoriteFilmsViewModel(
         collectionJob = viewModelScope.launch {
             getListFavoriteFilmsUseCase(sort)
                 .onStart { _favoriteFilmsState.value = UiState.Loading }
-                .onEach { handleSuccess(_favoriteFilmsState, it) }
+                .onEach { handleSuccess(_favoriteFilmsState, it.toUi()) }
                 .catch { handleError(_favoriteFilmsState, it as Exception) }
                 .collect { }
         }
@@ -61,7 +62,7 @@ class FavoriteFilmsViewModel(
         collectionJob = viewModelScope.launch {
             searchInFavoritesByNameUseCase(query)
                 .onStart { _favoriteFilmsState.value = UiState.Loading }
-                .onEach { handleSuccess(_favoriteFilmsState, it) }
+                .onEach { handleSuccess(_favoriteFilmsState, it.toUi()) }
                 .catch { handleError(_favoriteFilmsState, it as Exception) }
                 .collect { }
         }

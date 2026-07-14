@@ -1,6 +1,8 @@
 package com.base.app.intent
 
-import androidx.compose.material3.Text
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
@@ -9,7 +11,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.base.app.presentation.film_detail.FilmDetailScreen
-import com.base.app.presentation.home.FilmSearchTypeUiModel
+import com.base.app.presentation.film_favorites.FilmFavoriteListScreen
+import com.base.app.presentation.home.model.FilmSearchTypeUiModel
 import com.base.app.presentation.home.HomeScreen
 
 @Composable
@@ -18,7 +21,9 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = HomeDestination
+        startDestination = HomeDestination,
+        enterTransition = { fadeIn(animationSpec = tween(400)) },
+        exitTransition = { fadeOut(animationSpec = tween(400)) },
     ) {
         /** HomeScreen */
         composable<HomeDestination> {
@@ -50,7 +55,12 @@ fun AppNavigation(
 
         /** FilmFavoritesScreen */
         composable<FilmFavoritesDestination> {
-            Text(text = "Film Favorites Screen")
+            FilmFavoriteListScreen(
+                onNavigateToDetail = { id, searchType ->
+                    navController.navigate(FilmDetailDestination(id, searchType))
+                },
+                onBack = { navController.popBackStack() }
+            )
         }
     }
 }

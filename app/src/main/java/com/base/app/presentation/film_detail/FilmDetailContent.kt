@@ -25,6 +25,8 @@ import com.base.app.presentation.film_detail.components.FilmInfoSection
 import com.base.app.presentation.film_detail.components.FilmPosterOverlay
 import com.base.app.presentation.film_detail.components.FilmRatingSection
 import com.base.app.presentation.film_detail.model.FilmUiModel
+import com.base.app.presentation.theme.darkBlue
+import com.base.app.presentation.theme.darkRed
 import com.movies.app.R
 
 @Composable
@@ -35,8 +37,6 @@ fun FilmDetailContent(
     onFavoriteToggle: (FilmUiModel) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val darkBlue = Color(0xFF001325)
-    val darkRed = Color(0xFFB60000)
     val scrollState = rememberScrollState()
 
     Scaffold(

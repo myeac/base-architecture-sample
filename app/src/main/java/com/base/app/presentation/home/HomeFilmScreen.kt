@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.base.app.intent.HomeNavigator
+import com.base.app.presentation.home.view_model.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
