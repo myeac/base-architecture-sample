@@ -1,6 +1,6 @@
 package com.base.app.presentation.film_detail.view_model
 
-import com.base.app.domain.model.FilmModel
+import com.base.app.domain.model.toUi
 import com.base.app.domain.use_case.GetFilmByIdUseCase
 import com.base.app.domain.use_case.GetFilmByTitleUseCase
 import com.base.app.domain.use_case.IsFilmFavoriteUseCase
@@ -27,7 +27,7 @@ class FilmDetailViewModel(
     private val _isFavorite = MutableStateFlow(false)
     val isFavorite = _isFavorite.asStateFlow()
 
-    private val _searchFilmState = MutableStateFlow<UiState<FilmModel>>(UiState.Idle)
+    private val _searchFilmState = MutableStateFlow<UiState<FilmUiModel>>(UiState.Idle)
     val searchFilmState = _searchFilmState.asStateFlow()
 
     fun loadFilm(
@@ -36,14 +36,8 @@ class FilmDetailViewModel(
     ) {
         when (searchType) {
             FilmSearchTypeUiModel.SEARCH_BY_TITLE -> searchFilmByTitle(parameter)
-            FilmSearchTypeUiModel.SEARCH_BY_ID -> {
-                searchFilmById(parameter)
-                checkFavoriteStatus(parameter)
-            }
-            FilmSearchTypeUiModel.SEARCH_FROM_FAVORITES -> {
-                searchFavouriteById(parameter)
-                checkFavoriteStatus(parameter)
-            }
+            FilmSearchTypeUiModel.SEARCH_BY_ID -> searchFilmById(parameter)
+            FilmSearchTypeUiModel.SEARCH_FROM_FAVORITES -> searchFavouriteById(parameter)
         }
     }
 
@@ -56,7 +50,9 @@ class FilmDetailViewModel(
         }
         executeUseCase(
             uiStateFlow = _searchFilmState,
-            call = { getFilmByTitleUseCase(title) }
+            call = { getFilmByTitleUseCase(title) },
+            mapper = { it.toUi() },
+            onSuccess = { uiModel -> checkFavoriteStatus(uiModel.imdbID) }
         )
     }
 
@@ -69,7 +65,9 @@ class FilmDetailViewModel(
         }
         executeUseCase(
             uiStateFlow = _searchFilmState,
-            call = { getFilmByIdUseCase(id) }
+            call = { getFilmByIdUseCase(id) },
+            mapper = { it.toUi() },
+            onSuccess = { uiModel -> checkFavoriteStatus(uiModel.imdbID) }
         )
     }
 
@@ -88,6 +86,8 @@ class FilmDetailViewModel(
         collectFlow(
             uiStateFlow = _searchFilmState,
             flowCall = { searchFavoriteByIdUseCase(imdbId) },
+            mapper = { it.toUi() },
+            onSuccess = { uiModel -> checkFavoriteStatus(uiModel.imdbID) }
         )
     }
 

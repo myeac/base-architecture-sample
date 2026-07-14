@@ -12,11 +12,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.base.app.presentation.film_detail.model.FilmUiModel
 
 @Composable
 fun FilmHeaderOverlay(
-    film: FilmUiModel,
+    imdbId: String,
+    imdbRating: String,
 ) {
     Row(
         modifier = Modifier
@@ -27,12 +27,12 @@ fun FilmHeaderOverlay(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "ID: ${film.imdbID}",
+            text = "ID: $imdbId",
             style = MaterialTheme.typography.labelSmall,
             color = Color.White
         )
         Text(
-            text = "★ ${film.imdbRating}",
+            text = "★ $imdbRating",
             style = MaterialTheme.typography.titleMedium,
             color = Color.Yellow
         )

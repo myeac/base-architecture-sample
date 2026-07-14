@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.base.app.presentation.FilmDetailScreen
+import com.base.app.presentation.film_detail.FilmDetailScreen
 import com.base.app.presentation.home.FilmSearchTypeUiModel
 import com.base.app.presentation.home.HomeScreen
 
@@ -43,7 +43,8 @@ fun AppNavigation(
             val args = it.toRoute<FilmDetailDestination>()
             FilmDetailScreen(
                 parameter = args.parameter,
-                searchType = args.searchType
+                searchType = args.searchType,
+                onBack = { navController.popBackStack() }
             )
         }
 

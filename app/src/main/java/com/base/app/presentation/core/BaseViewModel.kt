@@ -19,29 +19,39 @@ abstract class BaseViewModel : ViewModel() {
      * Executes a Use Case and manages the UiState lifecycle.
      * It automatically handles Loading, Success, SuccessEmpty, and Error states.
      */
-    protected fun <T> executeUseCase(
-        uiStateFlow: MutableStateFlow<UiState<T>>,
-        call: suspend () -> T
+    protected fun <DOMAIN, UI> executeUseCase(
+        uiStateFlow: MutableStateFlow<UiState<UI>>,
+        call: suspend () -> DOMAIN,
+        mapper: (DOMAIN) -> UI,
+        onSuccess: (UI) -> Unit = {},
     ) {
         viewModelScope.launch {
             uiStateFlow.value = UiState.Loading
             try {
                 val result = call()
-                handleSuccess(uiStateFlow, result)
+                val mappedResult = mapper(result)
+                handleSuccess(uiStateFlow, mappedResult)
+                onSuccess(mappedResult)
             } catch (exception: Exception) {
                 handleError(uiStateFlow, exception)
             }
         }
     }
 
-    protected fun <T> collectFlow(
-        uiStateFlow: MutableStateFlow<UiState<T>>,
-        flowCall: suspend () -> Flow<T>
+    protected fun <DOMAIN, UI> collectFlow(
+        uiStateFlow: MutableStateFlow<UiState<UI>>,
+        flowCall: suspend () -> Flow<DOMAIN>,
+        mapper: (DOMAIN) -> UI,
+        onSuccess: (UI) -> Unit = {},
     ) {
         viewModelScope.launch {
             uiStateFlow.value = UiState.Loading
             try {
-                flowCall().collect { handleSuccess(uiStateFlow, it) }
+                flowCall().collect { result ->
+                    val mappedResult = mapper(result)
+                    handleSuccess(uiStateFlow, mappedResult)
+                    onSuccess(mappedResult)
+                }
             } catch (exception: Exception) {
                 handleError(uiStateFlow, exception)
             }
