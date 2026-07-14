@@ -12,6 +12,6 @@ val Pink40 = Color(0xFF7D5260)
 
 //custom
 val darkBlue = Color(0xFF001325)
-val darkRed = Color(0xFFB60000)
+val darkRed = Color(0xFF880000)
 val darkYellow = Color(0xFFF5C518)
 val darkGreen = Color(0xFF2E5D18)
