@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.base.app.presentation.film_detail.FilmDetailScreen
+import com.base.app.presentation.film_favorites.FilmFavoriteListScreen
 import com.base.app.presentation.home.FilmSearchTypeUiModel
 import com.base.app.presentation.home.HomeScreen
 
@@ -50,7 +51,12 @@ fun AppNavigation(
 
         /** FilmFavoritesScreen */
         composable<FilmFavoritesDestination> {
-            Text(text = "Film Favorites Screen")
+            FilmFavoriteListScreen(
+                onNavigateToDetail = { id, searchType ->
+                    navController.navigate(FilmDetailDestination(id, searchType))
+                },
+                onBack = { navController.popBackStack() }
+            )
         }
     }
 }
