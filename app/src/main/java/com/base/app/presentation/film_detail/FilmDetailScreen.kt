@@ -42,7 +42,7 @@ fun FilmDetailScreen(
         }
         is UiState.Success -> {
             FilmDetailContent(
-                film = state.data.toUi(),
+                film = state.data,
                 isFavorite = isFavorite,
                 onFavoriteToggle = { viewModel.toggleFavorite(it) }
             )
