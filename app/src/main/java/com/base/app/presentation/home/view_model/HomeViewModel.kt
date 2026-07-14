@@ -1,6 +1,7 @@
-package com.base.app.presentation.home
+package com.base.app.presentation.home.view_model
 
 import com.base.app.presentation.core.BaseViewModel
+import com.base.app.presentation.home.model.FilmSearchTypeUiModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

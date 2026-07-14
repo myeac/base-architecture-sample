@@ -1,4 +1,4 @@
-package com.base.app.presentation.home
+package com.base.app.presentation.home.model
 
 enum class FilmSearchTypeUiModel {
     SEARCH_BY_TITLE,
