@@ -34,6 +34,21 @@ fun FilmDataValueSection(
 }
 
 @Composable
+fun FilmDataValueRatingSection(
+    film: FilmUiModel
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        FilmDataValueStructure("imdbVotes", film.imdbVotes)
+        FilmDataValueStructure("Box Office", film.boxOffice)
+        FilmDataValueStructure("Media Type", film.type)
+    }
+}
+
+@Composable
 fun FilmDataValueStructure(
     label: String,
     value: String,

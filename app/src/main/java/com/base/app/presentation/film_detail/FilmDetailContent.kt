@@ -11,10 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.base.app.presentation.film_detail.components.FilmDataValueRatingSection
 import com.base.app.presentation.film_detail.components.FilmDataValueSection
 import com.base.app.presentation.film_detail.components.FilmHeaderOverlay
 import com.base.app.presentation.film_detail.components.FilmInfoSection
 import com.base.app.presentation.film_detail.components.FilmPosterOverlay
+import com.base.app.presentation.film_detail.components.FilmRatingSection
 import com.base.app.presentation.film_detail.model.FilmUiModel
 
 @Composable
@@ -36,8 +38,12 @@ fun FilmDetailContent(
         FilmHeaderOverlay(film)
         FilmPosterOverlay(film.posterUrl, darkBlue)
         FilmInfoSection(film)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         FilmDataValueSection(film)
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(8.dp))
+        FilmRatingSection(film.ratings)
+        Spacer(modifier = Modifier.height(8.dp))
+        FilmDataValueRatingSection(film)
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
